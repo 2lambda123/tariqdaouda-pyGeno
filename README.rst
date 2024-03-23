@@ -26,7 +26,7 @@ pyGeno: A Python package for precision medicine and proteogenomics
 
 .. image:: http://bioinfo.iric.ca/~daoudat/pyGeno/_static/logo.png
    :alt: pyGeno's logo
-   
+
 
 pyGeno is (to our knowledge) the only tool available that will gladly build your specific genomes for you.
 
@@ -64,7 +64,7 @@ It is recommended to install pyGeno within a `virtual environement`_, to setup o
 pyGeno can be installed through pip:
 
 .. code:: shell
-	
+
 	pip install pyGeno #for the latest stable version
 
 Or github, for the latest developments:
@@ -91,7 +91,7 @@ direct access to the DNA and Protein sequences of your patients.
 .. code:: python
 
 	from pyGeno.Genome import *
-	
+
 	g = Genome(name = "GRCh37.75")
 	prot = g.get(Protein, id = 'ENSP00000438917')[0]
 	#print the protein sequence
@@ -100,14 +100,14 @@ direct access to the DNA and Protein sequences of your patients.
 	print prot.gene.biotype
 	#print protein's transcript sequence
 	print prot.transcript.sequence
-	
+
 	#fancy queries
 	for exon in g.get(Exon, {"CDS_start >": x1, "CDS_end <=" : x2, "chromosome.number" : "22"}) :
 		#print the exon's coding sequence
 		print exon.CDS
 		#print the exon's transcript sequence
 		print exon.transcript.sequence
-	
+
 	#You can do the same for your subject specific genomes
 	#by combining a reference genome with polymorphisms
 	g = Genome(name = "GRCh37.75", SNPs = ["STY21_RNA"], SNPFilter = MyFilter())
@@ -117,28 +117,28 @@ And if you ever get lost, there's an online **help()** function for each object 
 .. code:: python
 
 	from pyGeno.Genome import *
-	
+
 	print Exon.help()
 
 Should output:
 
 .. code::
-	
+
 	Available fields for Exon: CDS_start, end, chromosome, CDS_length, frame, number, CDS_end, start, genome, length, protein, gene, transcript, id, strand
 
-	
+
 Creating a Personalized Genome:
 -------------------------------
 Personalized Genomes are a powerful feature that allow you to work on the specific genomes and proteomes of your patients. You can even mix several SNP sets together.
 
 .. code:: python
-  
+
   from pyGeno.Genome import Genome
   #the name of the snp set is defined inside the datawrap's manifest.ini file
   dummy = Genome(name = 'GRCh37.75', SNPs = 'dummySRY')
   #you can also define a filter (ex: a quality filter) for the SNPs
   dummy = Genome(name = 'GRCh37.75', SNPs = 'dummySRY', SNPFilter = myFilter())
-  #and even mix several snp sets  
+  #and even mix several snp sets
   dummy = Genome(name = 'GRCh37.75', SNPs = ['dummySRY', 'anotherSet'], SNPFilter = myFilter())
 
 Filtering SNPs:
@@ -146,15 +146,15 @@ Filtering SNPs:
 pyGeno allows you to select the Polymorphisms that end up into the final sequences. It supports SNPs, Inserts and Deletions.
 
 .. code:: python
-	
+
 	from pyGeno.SNPFiltering import SNPFilter, SequenceSNP
 
 	class QMax_gt_filter(SNPFilter) :
-		
+
 		def __init__(self, threshold) :
 			self.threshold = threshold
-		
-		#Here SNPs is a dictionary: SNPSet Name => polymorphism  
+
+		#Here SNPs is a dictionary: SNPSet Name => polymorphism
 		#This filter ignores deletions and insertions and
 		#but applis all SNPs
 		def filter(self, chromosome, **SNPs) :
@@ -169,15 +169,15 @@ pyGeno allows you to select the Polymorphisms that end up into the final sequenc
 				else :
 					sources[snpSet] = snp
 					alleles.append(snp.alt) #if not an indel append the polymorphism
-				
+
 			#appends the refence allele to the lot
 			refAllele = chromosome.refSequence[pos]
 			alleles.append(refAllele)
 			sources['ref'] = refAllele
-	
+
 			#optional we keep a record of the polymorphisms that were used during the process
 			return SequenceSNP(alleles, sources = sources)
-		
+
 The filter function can also be made more specific by using arguments that have the same names as the SNPSets
 
 .. code:: python
@@ -205,7 +205,7 @@ Getting an arbitrary sequence:
 You can ask for any sequence of any chromosome:
 
 .. code:: python
-	
+
 	chr12 = myGenome.get(Chromosome, number = "12")[0]
 	print chr12.sequence[x1:x2]
 	# for the reference sequence
@@ -218,21 +218,21 @@ pyGeno's database is populated by importing datawraps.
 pyGeno comes with a few data wraps, to get the list you can use:
 
 .. code:: python
-	
+
 	import pyGeno.bootstrap as B
 	B.printDatawraps()
 
 .. code::
 
 	Available datawraps for boostraping
-	
+
 	SNPs
 	~~~~|
 	    |~~~:> Human_agnostic.dummySRY.tar.gz
 	    |~~~:> Human.dummySRY_casava.tar.gz
 	    |~~~:> dbSNP142_human_common_all.tar.gz
-	
-	
+
+
 	Genomes
 	~~~~~~~|
 	       |~~~:> Human.GRCh37.75.tar.gz
@@ -246,7 +246,7 @@ To get a list of remote datawraps that pyGeno can download for you, do:
 
 	B.printRemoteDatawraps()
 
-Importing whole genomes is a demanding process that take more than an hour and requires (according to tests) 
+Importing whole genomes is a demanding process that take more than an hour and requires (according to tests)
 at least 3GB of memory. Depending on your configuration, more might be required.
 
 That being said importating a data wrap is a one time operation and once the importation is complete the datawrap
@@ -257,14 +257,14 @@ The bootstrap module also has some handy functions for importing built-in packag
 Some of them just for playing around with pyGeno (**Fast importation** and **Small memory requirements**):
 
 .. code:: python
-	
+
 	import pyGeno.bootstrap as B
 
 	#Imports only the Y chromosome from the human reference genome GRCh37.75
 	#Very fast, requires even less memory. No download required.
 	B.importGenome("Human.GRCh37.75_Y-Only.tar.gz")
-	
-	#A dummy datawrap for humans SNPs and Indels in pyGeno's AgnosticSNP  format. 
+
+	#A dummy datawrap for humans SNPs and Indels in pyGeno's AgnosticSNP  format.
 	# This one has one SNP at the begining of the gene SRY
 	B.importSNPs("Human.dummySRY_casava.tar.gz")
 
@@ -274,7 +274,7 @@ And for more **Serious Work**, the whole reference genome.
 
 	#Downloads the whole genome (205MB, sequences + annotations), may take an hour or more.
 	B.importGenome("Human.GRCh38.78.tar.gz")
-	
+
 Importing a custom datawrap:
 --------------------------
 
@@ -301,7 +301,7 @@ For more details on how datawraps are made you can check wiki_ or have a look in
 Instanciating a genome:
 -----------------------
 .. code:: python
-	
+
 	from pyGeno.Genome import Genome
 	#the name of the genome is defined inside the package's manifest.ini file
 	ref = Genome(name = 'GRCh37.75')
@@ -360,7 +360,7 @@ Creating indexes to speed up queries:
 Find in sequences:
 ------------------
 
-Internally pyGeno uses a binary representation for nucleotides and amino acids to deal with polymorphisms. 
+Internally pyGeno uses a binary representation for nucleotides and amino acids to deal with polymorphisms.
 For example,both "AGC" and "ATG" will match the following sequence "...AT/GCCG...".
 
 .. code:: python
@@ -369,7 +369,7 @@ For example,both "AGC" and "ATG" will match the following sequence "...AT/GCCG..
 	transcript.find("AT/GCCG")
 	#returns the positions of all occurences
 	transcript.findAll("AT/GCCG")
-	
+
 	#similarly, you can also do
 	transcript.findIncDNA("AT/GCCG")
 	transcript.findAllIncDNA("AT/GCCG")
@@ -377,11 +377,11 @@ For example,both "AGC" and "ATG" will match the following sequence "...AT/GCCG..
 	transcript.findAllInUTR3("AT/GCCG")
 	transcript.findInUTR5("AT/GCCG")
 	transcript.findAllInUTR5("AT/GCCG")
-	
+
 	#same for proteins
 	protein.find("DEV/RDEM")
 	protein.findAll("DEV/RDEM")
-	
+
 	#and for exons
 	exon.find("AT/GCCG")
 	exon.findAll("AT/GCCG")
@@ -389,7 +389,7 @@ For example,both "AGC" and "ATG" will match the following sequence "...AT/GCCG..
 	exon.findAllInCDS("AT/GCCG")
 	#...
 
-	
+
 Progress Bar:
 -------------
 .. code:: python
@@ -397,6 +397,5 @@ Progress Bar:
   from pyGeno.tools.ProgressBar import ProgressBar
   pg = ProgressBar(nbEpochs = 155)
   for i in range(155) :
-  	pg.update(label = '%d' %i) # or simply p.update() 
+  	pg.update(label = '%d' %i) # or simply p.update()
   pg.close()
-
