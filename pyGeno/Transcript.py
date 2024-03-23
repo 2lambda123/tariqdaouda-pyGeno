@@ -25,11 +25,11 @@ class Transcript_Raba(pyGenoRabaObject):
     biotype = rf.Primitive()
     selenocysteine = rf.RList()
 
-    genome = rf.RabaObject('Genome_Raba')
-    chromosome = rf.RabaObject('Chromosome_Raba')
-    gene = rf.RabaObject('Gene_Raba')
-    protein = rf.RabaObject('Protein_Raba')
-    exons = rf.Relation('Exon_Raba')
+    genome = rf.RabaObject("Genome_Raba")
+    chromosome = rf.RabaObject("Chromosome_Raba")
+    gene = rf.RabaObject("Gene_Raba")
+    protein = rf.RabaObject("Protein_Raba")
+    exons = rf.Relation("Exon_Raba")
 
     def _curate(self):
         if self.name != None:
@@ -58,19 +58,17 @@ class Transcript(pyGenoRabaObjectWrapper):
     def __init__(self, *args, **kwargs):
         pyGenoRabaObjectWrapper.__init__(self, *args, **kwargs)
         self.exons = RLWrapper(self, Exon, self.wrapped_object.exons)
-        self._load_sequencesTriggers = set(
-            ["UTR5", "UTR3", "cDNA", "sequence", "data"])
+        self._load_sequencesTriggers = set(["UTR5", "UTR3", "cDNA", "sequence", "data"])
         self.exonsDict = {}
 
     def _makeLoadQuery(self, objectType, *args, **coolArgs):
         if issubclass(objectType, SNP_INDEL):
             # conf.db.enableDebug(True)
-            f = RabaQuery(
-                objectType, namespace=self._wrapped_class._raba_namespace)
-            coolArgs['species'] = self.genome.species
-            coolArgs['chromosomeNumber'] = self.chromosome.number
-            coolArgs['start >='] = self.start
-            coolArgs['start <'] = self.end
+            f = RabaQuery(objectType, namespace=self._wrapped_class._raba_namespace)
+            coolArgs["species"] = self.genome.species
+            coolArgs["chromosomeNumber"] = self.chromosome.number
+            coolArgs["start >="] = self.start
+            coolArgs["start <"] = self.end
 
             if len(args) > 0 and type(args[0]) is list:
                 for a in args[0]:
@@ -81,7 +79,9 @@ class Transcript(pyGenoRabaObjectWrapper):
 
             return f
 
-        return pyGenoRabaObjectWrapper._makeLoadQuery(self, objectType, *args, **coolArgs)
+        return pyGenoRabaObjectWrapper._makeLoadQuery(
+            self, objectType, *args, **coolArgs
+        )
 
     def _load_data(self):
         def getV(k):
@@ -99,55 +99,59 @@ class Transcript(pyGenoRabaObjectWrapper):
         prime5 = True
         for ee in self.wrapped_object.exons:
             e = pyGenoRabaObjectWrapper_metaclass._wrappers[Exon_Raba](
-                wrapped_object_and_bag=(ee, getV('bagKey')))
+                wrapped_object_and_bag=(ee, getV("bagKey"))
+            )
             self.exonsDict[(e.start, e.end)] = e
             exons.append(e)
             self.data.extend(e.data)
-            if self.gene.strand == '+':
+            if self.gene.strand == "+":
                 positions.extend(range(e.start, e.end))
             else:
-                positions.extend(range(e.end-1, e.start-1, -1))
+                positions.extend(range(e.end - 1, e.start - 1, -1))
 
             if e.hasCDS():
-                UTR5.append(''.join(e.UTR5))
+                UTR5.append("".join(e.UTR5))
 
                 if len(cDNA) == 0 and e.frame != 0:
-                    cDNA.append('N'*(3-e.frame))
+                    cDNA.append("N" * (3 - e.frame))
 
                 if len(e.CDS):
-                    cDNA.append(''.join(e.CDS))
+                    cDNA.append("".join(e.CDS))
                 else:
-                    print('WARNING: hasCDS flag is incorrect for exon %s.' % e.id)
+                    print("WARNING: hasCDS flag is incorrect for exon %s." % e.id)
 
-                UTR3.append(''.join(e.UTR3))
+                UTR3.append("".join(e.UTR3))
                 prime5 = False
             else:
                 if prime5:
-                    UTR5.append(''.join(e.data))
+                    UTR5.append("".join(e.data))
                     if len(e.UTR3):
                         print(
-                            "WARNING: exon has 3'UTR before transcript starts (%s)." % self.id)
+                            "WARNING: exon has 3'UTR before transcript starts (%s)."
+                            % self.id
+                        )
                 else:
-                    UTR3.append(''.join(e.data))
+                    UTR3.append("".join(e.data))
                     if len(e.UTR5):
                         print(
-                            "WARNING: exon has 5'UTR after transcript ends." % self.id)
+                            "WARNING: exon has 5'UTR after transcript ends." % self.id
+                        )
 
-        sequence = ''.join(self.data)
-        cDNA = ''.join(cDNA)
-        UTR5 = ''.join(UTR5)
-        UTR3 = ''.join(UTR3)
-        setV('exons', exons)
-        setV('sequence', sequence)
-        setV('cDNA', cDNA)
-        setV('UTR5', UTR5)
-        setV('UTR3', UTR3)
-        setV('positions', positions)
+        sequence = "".join(self.data)
+        cDNA = "".join(cDNA)
+        UTR5 = "".join(UTR5)
+        UTR3 = "".join(UTR3)
+        setV("exons", exons)
+        setV("sequence", sequence)
+        setV("cDNA", cDNA)
+        setV("UTR5", UTR5)
+        setV("UTR3", UTR3)
+        setV("positions", positions)
 
         if len(cDNA) > 0 and len(cDNA) % 3 != 0:
-            setV('flags', {'DUBIOUS': True, 'cDNA_LEN_NOT_MULT_3': True})
+            setV("flags", {"DUBIOUS": True, "cDNA_LEN_NOT_MULT_3": True})
         else:
-            setV('flags', {'DUBIOUS': False, 'cDNA_LEN_NOT_MULT_3': False})
+            setV("flags", {"DUBIOUS": False, "cDNA_LEN_NOT_MULT_3": False})
 
     def _load_bin_sequence(self):
         self.bin_sequence = NucBinarySequence(self.sequence)
@@ -161,11 +165,11 @@ class Transcript(pyGenoRabaObjectWrapper):
 
     def getCodon(self, i):
         """returns the ith codon"""
-        return self.getNucleotideCodon(i*3)[0]
+        return self.getNucleotideCodon(i * 3)[0]
 
     def iterCodons(self):
         """iterates through the codons"""
-        for i in range(len(self.cDNA)/3):
+        for i in range(len(self.cDNA) / 3):
             yield self.getCodon(i)
 
     def find(self, sequence):
@@ -214,7 +218,7 @@ class Transcript(pyGenoRabaObjectWrapper):
 
     def getNbCodons(self):
         """returns the number of codons in the transcript"""
-        return len(self.cDNA)/3
+        return len(self.cDNA) / 3
 
     def __getattribute__(self, name):
         return pyGenoRabaObjectWrapper.__getattribute__(self, name)
@@ -226,4 +230,8 @@ class Transcript(pyGenoRabaObjectWrapper):
         return len(self.sequence)
 
     def __str__(self):
-        return """Transcript, id: %s, name: %s > %s""" % (self.id, self.name, str(self.gene))
+        return """Transcript, id: %s, name: %s > %s""" % (
+            self.id,
+            self.name,
+            str(self.gene),
+        )
