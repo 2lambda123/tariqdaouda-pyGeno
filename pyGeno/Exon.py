@@ -53,7 +53,7 @@ class Exon(pyGenoRabaObjectWrapper) :
 
 	def __init__(self, *args, **kwargs) :
 		pyGenoRabaObjectWrapper.__init__(self, *args, **kwargs)
-		self._load_sequencesTriggers = set(["UTR5", "UTR3", "CDS", "sequence", "data"])
+		self._load_sequencesTriggers = {"UTR5", "UTR3", "CDS", "sequence", "data"}
 
 	def _makeLoadQuery(self, objectType, *args, **coolArgs) :
 		if issubclass(objectType, SNP_INDEL) :
