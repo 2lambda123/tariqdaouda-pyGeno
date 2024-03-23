@@ -138,8 +138,7 @@ codonAffinity = {
     "CGC": "high",
 }
 
-lowAffinityCodons = set([
-    "CTT",
+lowAffinityCodons = {"CTT",
     "ACA",
     "AAA",
     "ATA",
@@ -168,10 +167,8 @@ lowAffinityCodons = set([
     "GCA",
     "GTA",
     "GTT",
-    "GCT",
-])
-highAffinityCodons = set([
-    "ACC",
+    "GCT",}
+highAffinityCodons = {"ACC",
     "ATG",
     "AAG",
     "ACG",
@@ -204,8 +201,7 @@ highAffinityCodons = set([
     "GTG",
     "GAG",
     "TGA",
-    "GAC",
-])
+    "GAC",}
 
 # </7iyed>
 
