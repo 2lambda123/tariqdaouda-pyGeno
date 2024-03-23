@@ -1,4 +1,4 @@
-from setuptools import setup, find_packages 
+from setuptools import setup, find_packages
 from codecs import open
 from os import path
 
@@ -15,14 +15,14 @@ setup(
 
     description='A python package for Personalized Genomics and Proteomics',
     long_description=long_description,
-    
+
     url='http://pyGeno.iric.ca',
 
     author='Tariq Daouda',
     author_email='tariq.daouda@umontreal.ca',
 
-    test_suite="pyGeno.tests", 
-	
+    test_suite="pyGeno.tests",
+
     license='ApacheV2.0',
 
     # See https://pypi.python.org/pypi?%3Aaction=list_classifiers
@@ -65,7 +65,7 @@ setup(
     # need to place data files outside of your packages.
     # see http://docs.python.org/3.4/distutils/setupscript.html#installing-additional-files
     # In this case, 'data_file' will be installed into '<sys.prefix>/my_data'
-    #~ data_files=[('my_data', ['data/data_file'])],
+    # ~ data_files=[('my_data', ['data/data_file'])],
 
     # To provide executable scripts, use entry points in preference to the
     # "scripts" keyword. Entry points provide cross-platform support and allow
