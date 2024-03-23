@@ -3,6 +3,7 @@ import os
 
 
 class UnknownNucleotide(Exception):
+    """ """
     def __init__(self, nuc):
         self.msg = "Unknown nucleotides %s" % str(nuc)
 
@@ -14,6 +15,15 @@ class UnknownNucleotide(Exception):
 
 
 def saveResults(directoryName, fileName, strResults, log="", args=""):
+    """
+
+    :param directoryName: 
+    :param fileName: 
+    :param strResults: 
+    :param log:  (Default value = "")
+    :param args:  (Default value = "")
+
+    """
 
     if not os.path.exists(directoryName):
         os.makedirs(directoryName)
@@ -611,31 +621,66 @@ AAs = [
 
 
 def toFloat(x):
+    """
+
+    :param x: 
+
+    """
     return float(x)
 
 
 def toInt(x):
+    """
+
+    :param x: 
+
+    """
     return int(x)
 
 
 def floatToStr(x):
+    """
+
+    :param x: 
+
+    """
     return "%f" % (x)
 
 
 def intToStr(x):
+    """
+
+    :param x: 
+
+    """
     return "%d" % (x)
 
 
 def splitStr(x):
+    """
+
+    :param x: 
+
+    """
     return x.split(";")
 
 
 def stripSplitStr(x):
+    """
+
+    :param x: 
+
+    """
     return x.strip().split(";")
 
 
 def findAll(haystack, needle):
-    """returns a list of all occurances of needle in haystack"""
+    """returns a list of all occurances of needle in haystack
+
+    :param haystack: 
+    :param needle: 
+
+    """
 
     h = haystack
     res = []
@@ -652,7 +697,11 @@ def findAll(haystack, needle):
 
 
 def complementTab(seq=[]):
-    """returns a list of complementary sequence without inversing it"""
+    """returns a list of complementary sequence without inversing it
+
+    :param seq:  (Default value = [])
+
+    """
     complement = {
         "A": "T",
         "C": "G",
@@ -704,21 +753,29 @@ def complementTab(seq=[]):
 
 
 def reverseComplementTab(seq):
-    """
-    Complements a DNA sequence, returning the reverse complement in a list to manage INDEL.
+    """Complements a DNA sequence, returning the reverse complement in a list to manage INDEL.
+
+    :param seq: 
+
     """
     return complementTab(seq[::-1])
 
 
 def reverseComplement(seq):
-    """
-    Complements a DNA sequence, returning the reverse complement.
+    """Complements a DNA sequence, returning the reverse complement.
+
+    :param seq: 
+
     """
     return complement(seq)[::-1]
 
 
 def complement(seq):
-    """returns the complementary sequence without inversing it"""
+    """returns the complementary sequence without inversing it
+
+    :param seq: 
+
+    """
     tb = str.maketrans(
         "ACGTRYMKWSBDHVNacgtrymkwsbdhvn", "TGCAYRKMWSVHDBNtgcayrkmwsvhdbn"
     )
@@ -728,7 +785,11 @@ def complement(seq):
 
 
 def translateDNA_6Frames(sequence):
-    """returns 6 translation of sequence. One for each reading frame"""
+    """returns 6 translation of sequence. One for each reading frame
+
+    :param sequence: 
+
+    """
     trans = (
         translateDNA(sequence, "f1"),
         translateDNA(sequence, "f2"),
@@ -742,7 +803,14 @@ def translateDNA_6Frames(sequence):
 
 
 def translateDNA(sequence, frame="f1", translTable_id="default", ambiguous=False):
-    """Translates DNA code, frame : fwd1, fwd2, fwd3, rev1, rev2, rev3"""
+    """Translates DNA code, frame : fwd1, fwd2, fwd3, rev1, rev2, rev3
+
+    :param sequence: 
+    :param frame:  (Default value = "f1")
+    :param translTable_id:  (Default value = "default")
+    :param ambiguous:  (Default value = False)
+
+    """
 
     protein = ""
 
@@ -787,7 +855,12 @@ def translateDNA(sequence, frame="f1", translTable_id="default", ambiguous=False
 
 
 def getSequenceCombinaisons(polymorphipolymorphicDnaSeqSeq, pos=0):
-    """Takes a dna sequence with polymorphismes and returns all the possible sequences that it can yield"""
+    """Takes a dna sequence with polymorphismes and returns all the possible sequences that it can yield
+
+    :param polymorphipolymorphicDnaSeqSeq: 
+    :param pos:  (Default value = 0)
+
+    """
 
     if type(polymorphipolymorphicDnaSeqSeq) is not list:
         seq = list(polymorphipolymorphicDnaSeqSeq)
@@ -812,14 +885,22 @@ def getSequenceCombinaisons(polymorphipolymorphicDnaSeqSeq, pos=0):
 
 
 def polymorphicCodonCombinaisons(codon):
-    """Returns all the possible amino acids encoded by codon"""
+    """Returns all the possible amino acids encoded by codon
+
+    :param codon: 
+
+    """
     return getSequenceCombinaisons(codon, 0)
 
 
 def encodePolymorphicNucleotide(polySeq):
     """returns a single character encoding all nucletides of polySeq
     in a single character. PolySeq must have one of the following forms:
-    ['A', 'T', 'G'], 'ATG', 'A/T/G'"""
+    ['A', 'T', 'G'], 'ATG', 'A/T/G'
+
+    :param polySeq: 
+
+    """
 
     if type(polySeq) is str:
         if polySeq.find("/") < 0:
@@ -871,7 +952,11 @@ def encodePolymorphicNucleotide(polySeq):
 
 
 def decodePolymorphicNucleotide(nuc):
-    """the opposite of encodePolymorphicNucleotide, from 'R' to ['A', 'G']"""
+    """the opposite of encodePolymorphicNucleotide, from 'R' to ['A', 'G']
+
+    :param nuc: 
+
+    """
     if nuc in polymorphicNucleotides:
         return polymorphicNucleotides[nuc]
 
@@ -883,13 +968,22 @@ def decodePolymorphicNucleotide(nuc):
 
 def decodePolymorphicNucleotide_str(nuc):
     """same as decodePolymorphicNucleotide but returns a string instead
-    of a list, from 'R' to 'A/G"""
+    of a list, from 'R' to 'A/G
+
+    :param nuc: 
+
+    """
     return "/".join(decodePolymorphicNucleotide(nuc))
 
 
 def getNucleotideCodon(sequence, x1):
     """Returns the entire codon of the nucleotide at pos x1 in sequence,
-    and the position of that nocleotide in the codon in a tuple"""
+    and the position of that nocleotide in the codon in a tuple
+
+    :param sequence: 
+    :param x1: 
+
+    """
     if 0 <= x1 < len(sequence):
         p = x1 % 3
         return (sequence[x1 - p : x1 + 3 - p], p)
@@ -899,12 +993,15 @@ def getNucleotideCodon(sequence, x1):
 
 def showDifferences(seq1, seq2):
     """Returns a string highligthing differences between seq1 and seq2:
-
+    
     * Matches by '-'
-
+    
     * Differences : 'A|T'
-
+    
     * Exceeded length : '#'
+
+    :param seq1: 
+    :param seq2: 
 
     """
     ret = []
@@ -929,7 +1026,15 @@ def showDifferences(seq1, seq2):
 
 def highlightSubsequence(sequence, x1, x2, start=" [", stop="] "):
     """returns a sequence where the subsequence in [x1, x2[ is placed
-    in bewteen 'start' and 'stop'"""
+    in bewteen 'start' and 'stop'
+
+    :param sequence: 
+    :param x1: 
+    :param x2: 
+    :param start:  (Default value = " [")
+    :param stop:  (Default value = "] ")
+
+    """
 
     seq = list(sequence)
     # print(x1, x2-1, len(seq))

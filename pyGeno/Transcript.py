@@ -29,6 +29,7 @@ class Transcript_Raba(pyGenoRabaObject):
     exons = rf.Relation("Exon_Raba")
 
     def _curate(self):
+        """ """
         if self.name != None:
             self.name = self.name.upper()
 
@@ -59,6 +60,13 @@ class Transcript(pyGenoRabaObjectWrapper):
         self.exonsDict = {}
 
     def _makeLoadQuery(self, objectType, *args, **coolArgs):
+        """
+
+        :param objectType: 
+        :param *args: 
+        :param **coolArgs: 
+
+        """
         if issubclass(objectType, SNP_INDEL):
             # conf.db.enableDebug(True)
             f = RabaQuery(objectType, namespace=self._wrapped_class._raba_namespace)
@@ -81,10 +89,22 @@ class Transcript(pyGenoRabaObjectWrapper):
         )
 
     def _load_data(self):
+        """ """
         def getV(k):
+            """
+
+            :param k: 
+
+            """
             return pyGenoRabaObjectWrapper.__getattribute__(self, k)
 
         def setV(k, v):
+            """
+
+            :param k: 
+            :param v: 
+
+            """
             return pyGenoRabaObjectWrapper.__setattr__(self, k, v)
 
         self.data = []
@@ -151,17 +171,26 @@ class Transcript(pyGenoRabaObjectWrapper):
             setV("flags", {"DUBIOUS": False, "cDNA_LEN_NOT_MULT_3": False})
 
     def _load_bin_sequence(self):
+        """ """
         self.bin_sequence = NucBinarySequence(self.sequence)
         self.bin_UTR5 = NucBinarySequence(self.UTR5)
         self.bin_cDNA = NucBinarySequence(self.cDNA)
         self.bin_UTR3 = NucBinarySequence(self.UTR3)
 
     def getNucleotideCodon(self, cdnaX1):
-        """Returns the entire codon of the nucleotide at pos cdnaX1 in the cdna, and the position of that nocleotide in the codon"""
+        """Returns the entire codon of the nucleotide at pos cdnaX1 in the cdna, and the position of that nocleotide in the codon
+
+        :param cdnaX1: 
+
+        """
         return uf.getNucleotideCodon(self.cDNA, cdnaX1)
 
     def getCodon(self, i):
-        """returns the ith codon"""
+        """returns the ith codon
+
+        :param i: 
+
+        """
         return self.getNucleotideCodon(i * 3)[0]
 
     def iterCodons(self):
@@ -170,19 +199,35 @@ class Transcript(pyGenoRabaObjectWrapper):
             yield self.getCodon(i)
 
     def find(self, sequence):
-        """return the position of the first occurance of sequence"""
+        """
+
+        :param sequence: 
+
+        """
         return self.bin_sequence.find(sequence)
 
     def findAll(self, sequence):
-        """Returns a list of all positions where sequence was found"""
+        """Returns a list of all positions where sequence was found
+
+        :param sequence: 
+
+        """
         return self.bin_sequence.findAll(sequence)
 
     def findIncDNA(self, sequence):
-        """return the position of the first occurance of sequence"""
+        """
+
+        :param sequence: 
+
+        """
         return self.bin_cDNA.find(sequence)
 
     def findAllIncDNA(self, sequence):
-        """Returns a list of all positions where sequence was found in the cDNA"""
+        """Returns a list of all positions where sequence was found in the cDNA
+
+        :param sequence: 
+
+        """
         return self.bin_cDNA.findAll(sequence)
 
     def getcDNALength(self):
@@ -190,11 +235,19 @@ class Transcript(pyGenoRabaObjectWrapper):
         return len(self.cDNA)
 
     def findInUTR5(self, sequence):
-        """return the position of the first occurance of sequence in the 5'UTR"""
+        """
+
+        :param sequence: 
+
+        """
         return self.bin_UTR5.find(sequence)
 
     def findAllInUTR5(self, sequence):
-        """Returns a list of all positions where sequence was found in the 5'UTR"""
+        """Returns a list of all positions where sequence was found in the 5'UTR
+
+        :param sequence: 
+
+        """
         return self.bin_UTR5.findAll(sequence)
 
     def getUTR5Length(self):
@@ -202,11 +255,19 @@ class Transcript(pyGenoRabaObjectWrapper):
         return len(self.bin_UTR5)
 
     def findInUTR3(self, sequence):
-        """return the position of the first occurance of sequence in the 3'UTR"""
+        """
+
+        :param sequence: 
+
+        """
         return self.bin_UTR3.find(sequence)
 
     def findAllInUTR3(self, sequence):
-        """Returns a lits of all positions where sequence was found in the 3'UTR"""
+        """Returns a lits of all positions where sequence was found in the 3'UTR
+
+        :param sequence: 
+
+        """
         return self.bin_UTR3.findAll(sequence)
 
     def getUTR3Length(self):

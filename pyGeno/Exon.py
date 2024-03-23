@@ -29,6 +29,7 @@ class Exon_Raba(pyGenoRabaObject):
     protein = rf.RabaObject("Protein_Raba")
 
     def _curate(self):
+        """ """
         if self.start != None and self.end != None:
             if self.start > self.end:
                 self.start, self.end = self.end, self.start
@@ -58,6 +59,13 @@ class Exon(pyGenoRabaObjectWrapper):
         self._load_sequencesTriggers = set(["UTR5", "UTR3", "CDS", "sequence", "data"])
 
     def _makeLoadQuery(self, objectType, *args, **coolArgs):
+        """
+
+        :param objectType: 
+        :param *args: 
+        :param **coolArgs: 
+
+        """
         if issubclass(objectType, SNP_INDEL):
             f = RabaQuery(objectType, namespace=self._wrapped_class._raba_namespace)
             coolArgs["species"] = self.genome.species
@@ -79,6 +87,7 @@ class Exon(pyGenoRabaObjectWrapper):
         )
 
     def _load_data(self):
+        """ """
         data = self.chromosome.getSequenceData(slice(self.start, self.end))
 
         diffLen = (self.end - self.start) - len(data)
@@ -110,6 +119,7 @@ class Exon(pyGenoRabaObjectWrapper):
         self.sequence = "".join(self.data)
 
     def _load_bin_sequence(self):
+        """ """
         self.bin_sequence = NucBinarySequence(self.sequence)
         self.bin_UTR5 = NucBinarySequence(self.UTR5)
         self.bin_CDS = NucBinarySequence(self.CDS)
@@ -126,24 +136,43 @@ class Exon(pyGenoRabaObjectWrapper):
         return len(self.CDS)
 
     def find(self, sequence):
-        """return the position of the first occurance of sequence"""
+        """
+
+        :param sequence: 
+
+        """
         return self.bin_sequence.find(sequence)
 
     def findAll(self, sequence):
-        """Returns a lits of all positions where sequence was found"""
+        """Returns a lits of all positions where sequence was found
+
+        :param sequence: 
+
+        """
         return self.bin_sequence.findAll(sequence)
 
     def findInCDS(self, sequence):
-        """return the position of the first occurance of sequence"""
+        """
+
+        :param sequence: 
+
+        """
         return self.bin_CDS.find(sequence)
 
     def findAllInCDS(self, sequence):
-        """Returns a lits of all positions where sequence was found"""
+        """Returns a lits of all positions where sequence was found
+
+        :param sequence: 
+
+        """
         return self.bin_CDS.findAll(sequence)
 
     def pluck(self):
         """Returns a plucked object. Plucks the exon off the tree, set the value of self.transcript into str(self.transcript). This effectively disconnects the object and
-        makes it much more lighter in case you'd like to pickle it"""
+        makes it much more lighter in case you'd like to pickle it
+
+
+        """
         e = copy.copy(self)
         e.transcript = str(self.transcript)
         return e

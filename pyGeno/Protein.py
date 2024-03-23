@@ -23,6 +23,7 @@ class Protein_Raba(pyGenoRabaObject):
     transcript = rf.RabaObject("Transcript_Raba")
 
     def _curate(self):
+        """ """
         if self.name != None:
             self.name = self.name.upper()
 
@@ -37,6 +38,13 @@ class Protein(pyGenoRabaObjectWrapper):
         self._load_sequencesTriggers = set(["sequence"])
 
     def _makeLoadQuery(self, objectType, *args, **coolArgs):
+        """
+
+        :param objectType: 
+        :param *args: 
+        :param **coolArgs: 
+
+        """
         if issubclass(objectType, SNP_INDEL):
             f = RabaQuery(objectType, namespace=self._wrapped_class._raba_namespace)
             coolArgs["species"] = self.genome.species
@@ -58,6 +66,7 @@ class Protein(pyGenoRabaObjectWrapper):
         )
 
     def _load_sequences(self):
+        """ """
         if self.chromosome.number == "MT":
             self.sequence = uf.translateDNA(
                 self.transcript.cDNA, translTable_id="mt"
@@ -85,9 +94,11 @@ class Protein(pyGenoRabaObjectWrapper):
             self.sequence = uf.translateDNA(self.transcript.cDNA).rstrip("*")
 
     def getSequence(self):
+        """ """
         return self.sequence
 
     def _load_bin_sequence(self):
+        """ """
         self.bin_sequence = AABinarySequence(self.sequence)
 
     def getDefaultSequence(self):
@@ -99,19 +110,35 @@ class Protein(pyGenoRabaObjectWrapper):
         return self.bin_sequence.getPolymorphisms()
 
     def find(self, sequence):
-        """Returns the position of the first occurence of sequence taking polymorphisms into account"""
+        """Returns the position of the first occurence of sequence taking polymorphisms into account
+
+        :param sequence: 
+
+        """
         return self.bin_sequence.find(sequence)
 
     def findAll(self, sequence):
-        """Returns all the position of the occurences of sequence taking polymorphisms into accoun"""
+        """Returns all the position of the occurences of sequence taking polymorphisms into accoun
+
+        :param sequence: 
+
+        """
         return self.bin_sequence.findAll(sequence)
 
     def findString(self, sequence):
-        """Returns the first occurence of sequence using simple string search in sequence that doesn't care about polymorphisms"""
+        """Returns the first occurence of sequence using simple string search in sequence that doesn't care about polymorphisms
+
+        :param sequence: 
+
+        """
         return self.sequence.find(sequence)
 
     def findStringAll(self, sequence):
-        """Returns all first occurences of sequence using simple string search in sequence that doesn't care about polymorphisms"""
+        """Returns all first occurences of sequence using simple string search in sequence that doesn't care about polymorphisms
+
+        :param sequence: 
+
+        """
         return uf.findAll(self.sequence, sequence)
 
     def __getitem__(self, i):
