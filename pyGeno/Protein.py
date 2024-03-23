@@ -40,9 +40,9 @@ class Protein(pyGenoRabaObjectWrapper):
     def _makeLoadQuery(self, objectType, *args, **coolArgs):
         """
 
-        :param objectType: 
-        :param *args: 
-        :param **coolArgs: 
+        :param objectType:
+        :param *args:
+        :param **coolArgs:
 
         """
         if issubclass(objectType, SNP_INDEL):
@@ -112,7 +112,7 @@ class Protein(pyGenoRabaObjectWrapper):
     def find(self, sequence):
         """Returns the position of the first occurence of sequence taking polymorphisms into account
 
-        :param sequence: 
+        :param sequence:
 
         """
         return self.bin_sequence.find(sequence)
@@ -120,7 +120,7 @@ class Protein(pyGenoRabaObjectWrapper):
     def findAll(self, sequence):
         """Returns all the position of the occurences of sequence taking polymorphisms into accoun
 
-        :param sequence: 
+        :param sequence:
 
         """
         return self.bin_sequence.findAll(sequence)
@@ -128,7 +128,7 @@ class Protein(pyGenoRabaObjectWrapper):
     def findString(self, sequence):
         """Returns the first occurence of sequence using simple string search in sequence that doesn't care about polymorphisms
 
-        :param sequence: 
+        :param sequence:
 
         """
         return self.sequence.find(sequence)
@@ -136,7 +136,7 @@ class Protein(pyGenoRabaObjectWrapper):
     def findStringAll(self, sequence):
         """Returns all first occurences of sequence using simple string search in sequence that doesn't care about polymorphisms
 
-        :param sequence: 
+        :param sequence:
 
         """
         return uf.findAll(self.sequence, sequence)

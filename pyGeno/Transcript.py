@@ -62,9 +62,9 @@ class Transcript(pyGenoRabaObjectWrapper):
     def _makeLoadQuery(self, objectType, *args, **coolArgs):
         """
 
-        :param objectType: 
-        :param *args: 
-        :param **coolArgs: 
+        :param objectType:
+        :param *args:
+        :param **coolArgs:
 
         """
         if issubclass(objectType, SNP_INDEL):
@@ -93,7 +93,7 @@ class Transcript(pyGenoRabaObjectWrapper):
         def getV(k):
             """
 
-            :param k: 
+            :param k:
 
             """
             return pyGenoRabaObjectWrapper.__getattribute__(self, k)
@@ -101,8 +101,8 @@ class Transcript(pyGenoRabaObjectWrapper):
         def setV(k, v):
             """
 
-            :param k: 
-            :param v: 
+            :param k:
+            :param v:
 
             """
             return pyGenoRabaObjectWrapper.__setattr__(self, k, v)
@@ -180,7 +180,7 @@ class Transcript(pyGenoRabaObjectWrapper):
     def getNucleotideCodon(self, cdnaX1):
         """Returns the entire codon of the nucleotide at pos cdnaX1 in the cdna, and the position of that nocleotide in the codon
 
-        :param cdnaX1: 
+        :param cdnaX1:
 
         """
         return uf.getNucleotideCodon(self.cDNA, cdnaX1)
@@ -188,7 +188,7 @@ class Transcript(pyGenoRabaObjectWrapper):
     def getCodon(self, i):
         """returns the ith codon
 
-        :param i: 
+        :param i:
 
         """
         return self.getNucleotideCodon(i * 3)[0]
@@ -201,7 +201,7 @@ class Transcript(pyGenoRabaObjectWrapper):
     def find(self, sequence):
         """
 
-        :param sequence: 
+        :param sequence:
 
         """
         return self.bin_sequence.find(sequence)
@@ -209,7 +209,7 @@ class Transcript(pyGenoRabaObjectWrapper):
     def findAll(self, sequence):
         """Returns a list of all positions where sequence was found
 
-        :param sequence: 
+        :param sequence:
 
         """
         return self.bin_sequence.findAll(sequence)
@@ -217,7 +217,7 @@ class Transcript(pyGenoRabaObjectWrapper):
     def findIncDNA(self, sequence):
         """
 
-        :param sequence: 
+        :param sequence:
 
         """
         return self.bin_cDNA.find(sequence)
@@ -225,7 +225,7 @@ class Transcript(pyGenoRabaObjectWrapper):
     def findAllIncDNA(self, sequence):
         """Returns a list of all positions where sequence was found in the cDNA
 
-        :param sequence: 
+        :param sequence:
 
         """
         return self.bin_cDNA.findAll(sequence)
@@ -237,7 +237,7 @@ class Transcript(pyGenoRabaObjectWrapper):
     def findInUTR5(self, sequence):
         """
 
-        :param sequence: 
+        :param sequence:
 
         """
         return self.bin_UTR5.find(sequence)
@@ -245,7 +245,7 @@ class Transcript(pyGenoRabaObjectWrapper):
     def findAllInUTR5(self, sequence):
         """Returns a list of all positions where sequence was found in the 5'UTR
 
-        :param sequence: 
+        :param sequence:
 
         """
         return self.bin_UTR5.findAll(sequence)
@@ -257,7 +257,7 @@ class Transcript(pyGenoRabaObjectWrapper):
     def findInUTR3(self, sequence):
         """
 
-        :param sequence: 
+        :param sequence:
 
         """
         return self.bin_UTR3.find(sequence)
@@ -265,7 +265,7 @@ class Transcript(pyGenoRabaObjectWrapper):
     def findAllInUTR3(self, sequence):
         """Returns a lits of all positions where sequence was found in the 3'UTR
 
-        :param sequence: 
+        :param sequence:
 
         """
         return self.bin_UTR3.findAll(sequence)

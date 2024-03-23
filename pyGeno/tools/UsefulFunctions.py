@@ -17,9 +17,9 @@ class UnknownNucleotide(Exception):
 def saveResults(directoryName, fileName, strResults, log="", args=""):
     """
 
-    :param directoryName: 
-    :param fileName: 
-    :param strResults: 
+    :param directoryName:
+    :param fileName:
+    :param strResults:
     :param log:  (Default value = "")
     :param args:  (Default value = "")
 
@@ -623,7 +623,7 @@ AAs = [
 def toFloat(x):
     """
 
-    :param x: 
+    :param x:
 
     """
     return float(x)
@@ -632,7 +632,7 @@ def toFloat(x):
 def toInt(x):
     """
 
-    :param x: 
+    :param x:
 
     """
     return int(x)
@@ -641,7 +641,7 @@ def toInt(x):
 def floatToStr(x):
     """
 
-    :param x: 
+    :param x:
 
     """
     return "%f" % (x)
@@ -650,7 +650,7 @@ def floatToStr(x):
 def intToStr(x):
     """
 
-    :param x: 
+    :param x:
 
     """
     return "%d" % (x)
@@ -659,7 +659,7 @@ def intToStr(x):
 def splitStr(x):
     """
 
-    :param x: 
+    :param x:
 
     """
     return x.split(";")
@@ -668,7 +668,7 @@ def splitStr(x):
 def stripSplitStr(x):
     """
 
-    :param x: 
+    :param x:
 
     """
     return x.strip().split(";")
@@ -677,8 +677,8 @@ def stripSplitStr(x):
 def findAll(haystack, needle):
     """returns a list of all occurances of needle in haystack
 
-    :param haystack: 
-    :param needle: 
+    :param haystack:
+    :param needle:
 
     """
 
@@ -755,7 +755,7 @@ def complementTab(seq=[]):
 def reverseComplementTab(seq):
     """Complements a DNA sequence, returning the reverse complement in a list to manage INDEL.
 
-    :param seq: 
+    :param seq:
 
     """
     return complementTab(seq[::-1])
@@ -764,7 +764,7 @@ def reverseComplementTab(seq):
 def reverseComplement(seq):
     """Complements a DNA sequence, returning the reverse complement.
 
-    :param seq: 
+    :param seq:
 
     """
     return complement(seq)[::-1]
@@ -773,7 +773,7 @@ def reverseComplement(seq):
 def complement(seq):
     """returns the complementary sequence without inversing it
 
-    :param seq: 
+    :param seq:
 
     """
     tb = str.maketrans(
@@ -787,7 +787,7 @@ def complement(seq):
 def translateDNA_6Frames(sequence):
     """returns 6 translation of sequence. One for each reading frame
 
-    :param sequence: 
+    :param sequence:
 
     """
     trans = (
@@ -805,7 +805,7 @@ def translateDNA_6Frames(sequence):
 def translateDNA(sequence, frame="f1", translTable_id="default", ambiguous=False):
     """Translates DNA code, frame : fwd1, fwd2, fwd3, rev1, rev2, rev3
 
-    :param sequence: 
+    :param sequence:
     :param frame:  (Default value = "f1")
     :param translTable_id:  (Default value = "default")
     :param ambiguous:  (Default value = False)
@@ -857,7 +857,7 @@ def translateDNA(sequence, frame="f1", translTable_id="default", ambiguous=False
 def getSequenceCombinaisons(polymorphipolymorphicDnaSeqSeq, pos=0):
     """Takes a dna sequence with polymorphismes and returns all the possible sequences that it can yield
 
-    :param polymorphipolymorphicDnaSeqSeq: 
+    :param polymorphipolymorphicDnaSeqSeq:
     :param pos:  (Default value = 0)
 
     """
@@ -887,7 +887,7 @@ def getSequenceCombinaisons(polymorphipolymorphicDnaSeqSeq, pos=0):
 def polymorphicCodonCombinaisons(codon):
     """Returns all the possible amino acids encoded by codon
 
-    :param codon: 
+    :param codon:
 
     """
     return getSequenceCombinaisons(codon, 0)
@@ -898,7 +898,7 @@ def encodePolymorphicNucleotide(polySeq):
     in a single character. PolySeq must have one of the following forms:
     ['A', 'T', 'G'], 'ATG', 'A/T/G'
 
-    :param polySeq: 
+    :param polySeq:
 
     """
 
@@ -954,7 +954,7 @@ def encodePolymorphicNucleotide(polySeq):
 def decodePolymorphicNucleotide(nuc):
     """the opposite of encodePolymorphicNucleotide, from 'R' to ['A', 'G']
 
-    :param nuc: 
+    :param nuc:
 
     """
     if nuc in polymorphicNucleotides:
@@ -970,7 +970,7 @@ def decodePolymorphicNucleotide_str(nuc):
     """same as decodePolymorphicNucleotide but returns a string instead
     of a list, from 'R' to 'A/G
 
-    :param nuc: 
+    :param nuc:
 
     """
     return "/".join(decodePolymorphicNucleotide(nuc))
@@ -980,8 +980,8 @@ def getNucleotideCodon(sequence, x1):
     """Returns the entire codon of the nucleotide at pos x1 in sequence,
     and the position of that nocleotide in the codon in a tuple
 
-    :param sequence: 
-    :param x1: 
+    :param sequence:
+    :param x1:
 
     """
     if 0 <= x1 < len(sequence):
@@ -993,15 +993,15 @@ def getNucleotideCodon(sequence, x1):
 
 def showDifferences(seq1, seq2):
     """Returns a string highligthing differences between seq1 and seq2:
-    
+
     * Matches by '-'
-    
+
     * Differences : 'A|T'
-    
+
     * Exceeded length : '#'
 
-    :param seq1: 
-    :param seq2: 
+    :param seq1:
+    :param seq2:
 
     """
     ret = []
@@ -1028,9 +1028,9 @@ def highlightSubsequence(sequence, x1, x2, start=" [", stop="] "):
     """returns a sequence where the subsequence in [x1, x2[ is placed
     in bewteen 'start' and 'stop'
 
-    :param sequence: 
-    :param x1: 
-    :param x2: 
+    :param sequence:
+    :param x1:
+    :param x2:
     :param start:  (Default value = " [")
     :param stop:  (Default value = "] ")
 

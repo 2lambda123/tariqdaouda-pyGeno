@@ -61,9 +61,9 @@ class Exon(pyGenoRabaObjectWrapper):
     def _makeLoadQuery(self, objectType, *args, **coolArgs):
         """
 
-        :param objectType: 
-        :param *args: 
-        :param **coolArgs: 
+        :param objectType:
+        :param *args:
+        :param **coolArgs:
 
         """
         if issubclass(objectType, SNP_INDEL):
@@ -138,7 +138,7 @@ class Exon(pyGenoRabaObjectWrapper):
     def find(self, sequence):
         """
 
-        :param sequence: 
+        :param sequence:
 
         """
         return self.bin_sequence.find(sequence)
@@ -146,7 +146,7 @@ class Exon(pyGenoRabaObjectWrapper):
     def findAll(self, sequence):
         """Returns a lits of all positions where sequence was found
 
-        :param sequence: 
+        :param sequence:
 
         """
         return self.bin_sequence.findAll(sequence)
@@ -154,7 +154,7 @@ class Exon(pyGenoRabaObjectWrapper):
     def findInCDS(self, sequence):
         """
 
-        :param sequence: 
+        :param sequence:
 
         """
         return self.bin_CDS.find(sequence)
@@ -162,7 +162,7 @@ class Exon(pyGenoRabaObjectWrapper):
     def findAllInCDS(self, sequence):
         """Returns a lits of all positions where sequence was found
 
-        :param sequence: 
+        :param sequence:
 
         """
         return self.bin_CDS.findAll(sequence)
