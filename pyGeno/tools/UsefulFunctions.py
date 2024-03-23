@@ -717,12 +717,13 @@ def findAll(haystack, needle):
     return res
 
 
-def complementTab(seq=[]):
+def complementTab(seq=None):
     """returns a list of complementary sequence without inversing it
 
     :param seq:  (Default value = [])
 
     """
+    seq = [] if seq is None else seq
     complement = {
         "A": "T",
         "C": "G",
