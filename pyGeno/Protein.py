@@ -46,7 +46,8 @@ class Protein(pyGenoRabaObjectWrapper):
 
         """
         if issubclass(objectType, SNP_INDEL):
-            f = RabaQuery(objectType, namespace=self._wrapped_class._raba_namespace)
+            f = RabaQuery(objectType,
+                          namespace=self._wrapped_class._raba_namespace)
             coolArgs["species"] = self.genome.species
             coolArgs["chromosomeNumber"] = self.chromosome.number
             coolArgs["start >="] = self.transcript.start
@@ -61,33 +62,30 @@ class Protein(pyGenoRabaObjectWrapper):
 
             return f
 
-        return pyGenoRabaObjectWrapper._makeLoadQuery(
-            self, objectType, *args, **coolArgs
-        )
+        return pyGenoRabaObjectWrapper._makeLoadQuery(self, objectType, *args,
+                                                      **coolArgs)
 
     def _load_sequences(self):
         """ """
         if self.chromosome.number == "MT":
-            self.sequence = uf.translateDNA(
-                self.transcript.cDNA, translTable_id="mt"
-            ).rstrip("*")
+            self.sequence = uf.translateDNA(self.transcript.cDNA,
+                                            translTable_id="mt").rstrip("*")
         elif self.transcript.selenocysteine is not None:
             sequence = list(uf.translateDNA(self.transcript.cDNA))
             for p in self.transcript.selenocysteine:
-                p_seq = self.transcript.positions[len(self.transcript.UTR5) :].index(p)
+                p_seq = self.transcript.positions[len(self.transcript.UTR5
+                                                      ):].index(p)
                 if self.transcript.gene.strand == "-":
                     p_seq -= 2
                 if p_seq % 3:
                     print(
                         "WARNING: Selenocysteine position is not multiple of 3 (%s)."
-                        % self.transcript.id
-                    )
+                        % self.transcript.id)
                 p_seq = p_seq // 3
                 if sequence[p_seq] != "*":
                     print(
                         "WARNING: Selenocysteine position is not erroneous 3 (%s)."
-                        % self.transcript.id
-                    )
+                        % self.transcript.id)
                 sequence[p_seq] = "U"
             self.sequence = "".join(sequence).rstrip("*")
         else:

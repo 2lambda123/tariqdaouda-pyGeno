@@ -56,7 +56,8 @@ class Transcript(pyGenoRabaObjectWrapper):
     def __init__(self, *args, **kwargs):
         pyGenoRabaObjectWrapper.__init__(self, *args, **kwargs)
         self.exons = RLWrapper(self, Exon, self.wrapped_object.exons)
-        self._load_sequencesTriggers = set(["UTR5", "UTR3", "cDNA", "sequence", "data"])
+        self._load_sequencesTriggers = set(
+            ["UTR5", "UTR3", "cDNA", "sequence", "data"])
         self.exonsDict = {}
 
     def _makeLoadQuery(self, objectType, *args, **coolArgs):
@@ -69,7 +70,8 @@ class Transcript(pyGenoRabaObjectWrapper):
         """
         if issubclass(objectType, SNP_INDEL):
             # conf.db.enableDebug(True)
-            f = RabaQuery(objectType, namespace=self._wrapped_class._raba_namespace)
+            f = RabaQuery(objectType,
+                          namespace=self._wrapped_class._raba_namespace)
             coolArgs["species"] = self.genome.species
             coolArgs["chromosomeNumber"] = self.chromosome.number
             coolArgs["start >="] = self.start
@@ -84,12 +86,12 @@ class Transcript(pyGenoRabaObjectWrapper):
 
             return f
 
-        return pyGenoRabaObjectWrapper._makeLoadQuery(
-            self, objectType, *args, **coolArgs
-        )
+        return pyGenoRabaObjectWrapper._makeLoadQuery(self, objectType, *args,
+                                                      **coolArgs)
 
     def _load_data(self):
         """ """
+
         def getV(k):
             """
 
@@ -116,8 +118,7 @@ class Transcript(pyGenoRabaObjectWrapper):
         prime5 = True
         for ee in self.wrapped_object.exons:
             e = pyGenoRabaObjectWrapper_metaclass._wrappers[Exon_Raba](
-                wrapped_object_and_bag=(ee, getV("bagKey"))
-            )
+                wrapped_object_and_bag=(ee, getV("bagKey")))
             self.exonsDict[(e.start, e.end)] = e
             exons.append(e)
             self.data.extend(e.data)
@@ -135,7 +136,8 @@ class Transcript(pyGenoRabaObjectWrapper):
                 if len(e.CDS):
                     cDNA.append("".join(e.CDS))
                 else:
-                    print("WARNING: hasCDS flag is incorrect for exon %s." % e.id)
+                    print("WARNING: hasCDS flag is incorrect for exon %s." %
+                          e.id)
 
                 UTR3.append("".join(e.UTR3))
                 prime5 = False
@@ -145,14 +147,13 @@ class Transcript(pyGenoRabaObjectWrapper):
                     if len(e.UTR3):
                         print(
                             "WARNING: exon has 3'UTR before transcript starts (%s)."
-                            % self.id
-                        )
+                            % self.id)
                 else:
                     UTR3.append("".join(e.data))
                     if len(e.UTR5):
                         print(
-                            "WARNING: exon has 5'UTR after transcript ends." % self.id
-                        )
+                            "WARNING: exon has 5'UTR after transcript ends." %
+                            self.id)
 
         sequence = "".join(self.data)
         cDNA = "".join(cDNA)

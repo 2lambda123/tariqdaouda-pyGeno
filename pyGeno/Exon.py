@@ -56,7 +56,8 @@ class Exon(pyGenoRabaObjectWrapper):
 
     def __init__(self, *args, **kwargs):
         pyGenoRabaObjectWrapper.__init__(self, *args, **kwargs)
-        self._load_sequencesTriggers = set(["UTR5", "UTR3", "CDS", "sequence", "data"])
+        self._load_sequencesTriggers = set(
+            ["UTR5", "UTR3", "CDS", "sequence", "data"])
 
     def _makeLoadQuery(self, objectType, *args, **coolArgs):
         """
@@ -67,7 +68,8 @@ class Exon(pyGenoRabaObjectWrapper):
 
         """
         if issubclass(objectType, SNP_INDEL):
-            f = RabaQuery(objectType, namespace=self._wrapped_class._raba_namespace)
+            f = RabaQuery(objectType,
+                          namespace=self._wrapped_class._raba_namespace)
             coolArgs["species"] = self.genome.species
             coolArgs["chromosomeNumber"] = self.chromosome.number
             coolArgs["start >="] = self.start
@@ -82,9 +84,8 @@ class Exon(pyGenoRabaObjectWrapper):
 
             return f
 
-        return pyGenoRabaObjectWrapper._makeLoadQuery(
-            self, objectType, *args, **coolArgs
-        )
+        return pyGenoRabaObjectWrapper._makeLoadQuery(self, objectType, *args,
+                                                      **coolArgs)
 
     def _load_data(self):
         """ """
@@ -103,14 +104,13 @@ class Exon(pyGenoRabaObjectWrapper):
 
             if self.strand == "+":
                 self.UTR5 = self.data[:start]
-                self.CDS = self.data[start : end + diffLen]
-                self.UTR3 = self.data[end + diffLen :]
+                self.CDS = self.data[start:end + diffLen]
+                self.UTR3 = self.data[end + diffLen:]
             else:
-                self.UTR5 = self.data[: len(self.data) - (end - diffLen)]
-                self.CDS = self.data[
-                    len(self.data) - (end - diffLen) : len(self.data) - start
-                ]
-                self.UTR3 = self.data[len(self.data) - start :]
+                self.UTR5 = self.data[:len(self.data) - (end - diffLen)]
+                self.CDS = self.data[len(self.data) -
+                                     (end - diffLen):len(self.data) - start]
+                self.UTR3 = self.data[len(self.data) - start:]
         else:
             self.UTR5 = ""
             self.CDS = ""
@@ -206,8 +206,7 @@ class Exon(pyGenoRabaObjectWrapper):
                 self.CDS_start,
                 self.CDS_end,
                 str(self.transcript),
-            )
-        )
+            ))
 
     def __len__(self):
         return len(self.sequence)

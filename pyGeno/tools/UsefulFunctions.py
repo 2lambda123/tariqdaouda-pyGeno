@@ -4,6 +4,7 @@ import os
 
 class UnknownNucleotide(Exception):
     """ """
+
     def __init__(self, nuc):
         self.msg = "Unknown nucleotides %s" % str(nuc)
 
@@ -137,78 +138,74 @@ codonAffinity = {
     "CGC": "high",
 }
 
-lowAffinityCodons = set(
-    [
-        "CTT",
-        "ACA",
-        "AAA",
-        "ATA",
-        "CCT",
-        "AGA",
-        "CAT",
-        "AAT",
-        "ATT",
-        "CTA",
-        "ACT",
-        "CAA",
-        "AGT",
-        "CCA",
-        "TAT",
-        "GGT",
-        "TGT",
-        "CGA",
-        "TCT",
-        "GAT",
-        "TTT",
-        "GGA",
-        "TTA",
-        "CGT",
-        "GAA",
-        "TCA",
-        "GCA",
-        "GTA",
-        "GTT",
-        "GCT",
-    ]
-)
-highAffinityCodons = set(
-    [
-        "ACC",
-        "ATG",
-        "AAG",
-        "ACG",
-        "ATC",
-        "AAC",
-        "AGG",
-        "AGC",
-        "CTG",
-        "CTC",
-        "CAC",
-        "CCG",
-        "CAG",
-        "CCC",
-        "CGC",
-        "CGG",
-        "TGC",
-        "GGG",
-        "TAG",
-        "TGG",
-        "GGC",
-        "TAC",
-        "TTC",
-        "TCG",
-        "TTG",
-        "TCC",
-        "TAA",
-        "GCC",
-        "GTC",
-        "GCG",
-        "GTG",
-        "GAG",
-        "TGA",
-        "GAC",
-    ]
-)
+lowAffinityCodons = set([
+    "CTT",
+    "ACA",
+    "AAA",
+    "ATA",
+    "CCT",
+    "AGA",
+    "CAT",
+    "AAT",
+    "ATT",
+    "CTA",
+    "ACT",
+    "CAA",
+    "AGT",
+    "CCA",
+    "TAT",
+    "GGT",
+    "TGT",
+    "CGA",
+    "TCT",
+    "GAT",
+    "TTT",
+    "GGA",
+    "TTA",
+    "CGT",
+    "GAA",
+    "TCA",
+    "GCA",
+    "GTA",
+    "GTT",
+    "GCT",
+])
+highAffinityCodons = set([
+    "ACC",
+    "ATG",
+    "AAG",
+    "ACG",
+    "ATC",
+    "AAC",
+    "AGG",
+    "AGC",
+    "CTG",
+    "CTC",
+    "CAC",
+    "CCG",
+    "CAG",
+    "CCC",
+    "CGC",
+    "CGG",
+    "TGC",
+    "GGG",
+    "TAG",
+    "TGG",
+    "GGC",
+    "TAC",
+    "TTC",
+    "TCG",
+    "TTG",
+    "TCC",
+    "TAA",
+    "GCC",
+    "GTC",
+    "GCG",
+    "GTG",
+    "GAG",
+    "TGA",
+    "GAC",
+])
 
 # </7iyed>
 
@@ -356,29 +353,49 @@ synonymousCodonsFrequencies = {
         "GCT": 0.2748297757275403,
         "GCG": 0.09863244676881429,
     },
-    "C": {"TGC": 0.5274613220815753, "TGT": 0.47253867791842474},
-    "E": {"GAG": 0.5542731864894314, "GAA": 0.44572681351056864},
-    "D": {"GAT": 0.48745614313610314, "GAC": 0.5125438568638969},
+    "C": {
+        "TGC": 0.5274613220815753,
+        "TGT": 0.47253867791842474
+    },
+    "E": {
+        "GAG": 0.5542731864894314,
+        "GAA": 0.44572681351056864
+    },
+    "D": {
+        "GAT": 0.48745614313610314,
+        "GAC": 0.5125438568638969
+    },
     "G": {
         "GGT": 0.1682082284016543,
         "GGG": 0.24240206742876733,
         "GGA": 0.26795045906236126,
         "GGC": 0.3214392451072171,
     },
-    "F": {"TTC": 0.51760124870901, "TTT": 0.48239875129098997},
+    "F": {
+        "TTC": 0.51760124870901,
+        "TTT": 0.48239875129098997
+    },
     "I": {
         "ATT": 0.3744155479793762,
         "ATC": 0.4473324534485262,
         "ATA": 0.17825199857209761,
     },
-    "H": {"CAC": 0.5593224017231121, "CAT": 0.4406775982768879},
-    "K": {"AAG": 0.552763002048904, "AAA": 0.44723699795109595},
+    "H": {
+        "CAC": 0.5593224017231121,
+        "CAT": 0.4406775982768879
+    },
+    "K": {
+        "AAG": 0.552763002048904,
+        "AAA": 0.44723699795109595
+    },
     "*": {
         "TAG": 0.19233348084375965,
         "TGA": 0.5562081774416328,
         "TAA": 0.25145834171460757,
     },
-    "M": {"ATG": 1.0},
+    "M": {
+        "ATG": 1.0
+    },
     "L": {
         "CTT": 0.14142445416797428,
         "CTG": 0.37916443861342136,
@@ -387,8 +404,14 @@ synonymousCodonsFrequencies = {
         "TTA": 0.08364882247135866,
         "TTG": 0.13536735085409574,
     },
-    "N": {"AAT": 0.48946102144446174, "AAC": 0.5105389785555383},
-    "Q": {"CAA": 0.27844698705060605, "CAG": 0.721553012949394},
+    "N": {
+        "AAT": 0.48946102144446174,
+        "AAC": 0.5105389785555383
+    },
+    "Q": {
+        "CAA": 0.27844698705060605,
+        "CAG": 0.721553012949394
+    },
     "P": {
         "CCT": 0.29583684315158226,
         "CCG": 0.1076409230535928,
@@ -417,16 +440,20 @@ synonymousCodonsFrequencies = {
         "ACG": 0.10993573358004469,
         "ACT": 0.2570661220619738,
     },
-    "W": {"TGG": 1.0},
+    "W": {
+        "TGG": 1.0
+    },
     "V": {
         "GTA": 0.12674172810489015,
         "GTC": 0.230566755353321,
         "GTT": 0.19472010868151218,
         "GTG": 0.44797140786027667,
     },
-    "Y": {"TAT": 0.46315236005272553, "TAC": 0.5368476399472745},
+    "Y": {
+        "TAT": 0.46315236005272553,
+        "TAC": 0.5368476399472745
+    },
 }
-
 
 # Translation tables
 # Ref: https://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi
@@ -501,7 +528,6 @@ translTable["default"] = {
 }
 codonTable = translTable["default"]
 
-
 # The Vertebrate Mitochondrial Code (NCBI transl_table=2)
 translTable["mt"] = {
     "TTT": "F",
@@ -569,7 +595,6 @@ translTable["mt"] = {
     "GGA": "G",
     "GGG": "G",
 }
-
 
 AATable = {
     "A": ["GCA", "GCC", "GCG", "GCT"],
@@ -690,7 +715,7 @@ def findAll(haystack, needle):
         # print h, needle, f, offset
         res.append(f + offset)
         offset += f + len(needle)
-        h = h[f + len(needle) :]
+        h = h[f + len(needle):]
         f = h.find(needle)
 
     return res
@@ -776,9 +801,8 @@ def complement(seq):
     :param seq:
 
     """
-    tb = str.maketrans(
-        "ACGTRYMKWSBDHVNacgtrymkwsbdhvn", "TGCAYRKMWSVHDBNtgcayrkmwsvhdbn"
-    )
+    tb = str.maketrans("ACGTRYMKWSBDHVNacgtrymkwsbdhvn",
+                       "TGCAYRKMWSVHDBNtgcayrkmwsvhdbn")
 
     # just to be sure that seq isn't unicode
     return str(seq).translate(tb)
@@ -802,7 +826,10 @@ def translateDNA_6Frames(sequence):
     return trans
 
 
-def translateDNA(sequence, frame="f1", translTable_id="default", ambiguous=False):
+def translateDNA(sequence,
+                 frame="f1",
+                 translTable_id="default",
+                 ambiguous=False):
     """Translates DNA code, frame : fwd1, fwd2, fwd3, rev1, rev2, rev3
 
     :param sequence:
@@ -831,11 +858,10 @@ def translateDNA(sequence, frame="f1", translTable_id="default", ambiguous=False
     else:
         raise ValueError(
             "unknown reading frame: %s, should be one of the following: fwd1, fwd2, fwd3, rev1, rev2, rev3"
-            % frame
-        )
+            % frame)
 
     for i in range(0, len(dna), 3):
-        codon = dna[i : i + 3]
+        codon = dna[i:i + 3]
 
         if len(codon) == 3:
             try:
@@ -846,7 +872,8 @@ def translateDNA(sequence, frame="f1", translTable_id="default", ambiguous=False
                     combinaisons = polymorphicCodonCombinaisons(list(codon))
                     translations = set()
                     for ci in range(len(combinaisons)):
-                        translations.add(translTable[translTable_id][combinaisons[ci]])
+                        translations.add(
+                            translTable[translTable_id][combinaisons[ci]])
                     protein += "/".join(translations)
                 else:
                     protein += "X"
@@ -986,7 +1013,7 @@ def getNucleotideCodon(sequence, x1):
     """
     if 0 <= x1 < len(sequence):
         p = x1 % 3
-        return (sequence[x1 - p : x1 + 3 - p], p)
+        return (sequence[x1 - p:x1 + 3 - p], p)
     else:
         return None
 

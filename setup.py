@@ -35,7 +35,8 @@ setup(
         "License :: OSI Approved :: Apache Software License",
         "Programming Language :: Python :: 3.5",
     ],
-    keywords="proteogenomics genomics proteomics annotations medicine research personalized gene sequence protein",
+    keywords=
+    "proteogenomics genomics proteomics annotations medicine research personalized gene sequence protein",
     packages=find_packages(exclude=[]),
     # List run-time dependencies here.  These will be installed by pip when your
     # project is installed. For an analysis of "install_requires" vs pip's
