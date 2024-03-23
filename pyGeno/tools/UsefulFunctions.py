@@ -1,5 +1,5 @@
-import os
 import copy
+import os
 
 
 class UnknownNucleotide(Exception):

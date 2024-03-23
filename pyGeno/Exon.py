@@ -1,7 +1,7 @@
+import rabaDB.fields as rf
+
 from .pyGenoObjectBases import *
 from .SNP import SNP_INDEL
-
-import rabaDB.fields as rf
 from .tools import UsefulFunctions as uf
 from .tools.BinarySequence import NucBinarySequence
 

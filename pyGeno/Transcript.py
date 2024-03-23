@@ -1,13 +1,10 @@
-from . import configuration as conf
-
-from .pyGenoObjectBases import *
-
 import rabaDB.fields as rf
 
-from .tools import UsefulFunctions as uf
+from . import configuration as conf
 from .Exon import *
+from .pyGenoObjectBases import *
 from .SNP import SNP_INDEL
-
+from .tools import UsefulFunctions as uf
 from .tools.BinarySequence import NucBinarySequence
 
 
