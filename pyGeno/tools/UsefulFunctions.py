@@ -48,8 +48,8 @@ polymorphicNucleotides = {
 #from Molecular Systems Biology 8; Article number 572; doi:10.1038/msb.2012.3
 codonAffinity = {'CTT': 'low', 'ACC': 'high', 'ACA': 'low', 'ACG': 'high', 'ATC': 'high', 'AAC': 'high', 'ATA': 'low', 'AGG': 'high', 'CCT': 'low', 'ACT': 'low', 'AGC': 'high', 'AAG': 'high', 'AGA': 'low', 'CAT': 'low', 'AAT': 'low', 'ATT': 'low', 'CTG': 'high', 'CTA': 'low', 'CTC': 'high', 'CAC': 'high', 'AAA': 'low', 'CCG': 'high', 'AGT': 'low', 'CCA': 'low', 'CAA': 'low', 'CCC': 'high', 'TAT': 'low', 'GGT': 'low', 'TGT': 'low', 'CGA': 'low', 'CAG': 'high', 'TCT': 'low', 'GAT': 'low', 'CGG': 'high', 'TTT': 'low', 'TGC': 'high', 'GGG': 'high', 'TAG': 'high', 'GGA': 'low', 'TGG': 'high', 'GGC': 'high', 'TAC': 'high', 'TTC': 'high', 'TCG': 'high', 'TTA': 'low', 'TTG': 'high', 'TCC': 'high', 'GAA': 'low', 'TAA': 'high', 'GCA': 'low', 'GTA': 'low', 'GCC': 'high', 'GTC': 'high', 'GCG': 'high', 'GTG': 'high', 'GAG': 'high', 'GTT': 'low', 'GCT': 'low', 'TGA': 'high', 'GAC': 'high', 'CGT': 'low', 'TCA': 'low', 'ATG': 'high', 'CGC': 'high'}
 
-lowAffinityCodons = set(['CTT', 'ACA', 'AAA', 'ATA', 'CCT', 'AGA', 'CAT', 'AAT', 'ATT', 'CTA', 'ACT', 'CAA', 'AGT', 'CCA', 'TAT', 'GGT', 'TGT', 'CGA', 'TCT', 'GAT', 'TTT', 'GGA', 'TTA', 'CGT', 'GAA', 'TCA', 'GCA', 'GTA', 'GTT', 'GCT'])
-highAffinityCodons = set(['ACC', 'ATG', 'AAG', 'ACG', 'ATC', 'AAC', 'AGG', 'AGC', 'CTG', 'CTC', 'CAC', 'CCG', 'CAG', 'CCC', 'CGC', 'CGG', 'TGC', 'GGG', 'TAG', 'TGG', 'GGC', 'TAC', 'TTC', 'TCG', 'TTG', 'TCC', 'TAA', 'GCC', 'GTC', 'GCG', 'GTG', 'GAG', 'TGA', 'GAC'])
+lowAffinityCodons = {'CTT', 'ACA', 'AAA', 'ATA', 'CCT', 'AGA', 'CAT', 'AAT', 'ATT', 'CTA', 'ACT', 'CAA', 'AGT', 'CCA', 'TAT', 'GGT', 'TGT', 'CGA', 'TCT', 'GAT', 'TTT', 'GGA', 'TTA', 'CGT', 'GAA', 'TCA', 'GCA', 'GTA', 'GTT', 'GCT'}
+highAffinityCodons = {'ACC', 'ATG', 'AAG', 'ACG', 'ATC', 'AAC', 'AGG', 'AGC', 'CTG', 'CTC', 'CAC', 'CCG', 'CAG', 'CCC', 'CGC', 'CGG', 'TGC', 'GGG', 'TAG', 'TGG', 'GGC', 'TAC', 'TTC', 'TCG', 'TTG', 'TCC', 'TAA', 'GCC', 'GTC', 'GCG', 'GTG', 'GAG', 'TGA', 'GAC'}
 
 #</7iyed>
 
@@ -148,8 +148,9 @@ def findAll(haystack, needle) :
 	return res
 
 
-def complementTab(seq=[]):
+def complementTab(seq=None):
     """returns a list of complementary sequence without inversing it"""
+    seq = [] if seq is None else seq
     complement = {'A': 'T', 'C': 'G', 'G': 'C', 'T': 'A', 'R': 'Y', 'Y': 'R', 'M': 'K', 'K': 'M',
                   'W': 'W', 'S': 'S', 'B': 'V', 'D': 'H', 'H': 'D', 'V': 'B', 'N': 'N', 'a': 't',
                   'c': 'g', 'g': 'c', 't': 'a', 'r': 'y', 'y': 'r', 'm': 'k', 'k': 'm', 'w': 'w',

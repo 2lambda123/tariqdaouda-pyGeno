@@ -33,7 +33,7 @@ class Protein(pyGenoRabaObjectWrapper) :
 
 	def __init__(self, *args, **kwargs) :
 		pyGenoRabaObjectWrapper.__init__(self, *args, **kwargs)
-		self._load_sequencesTriggers = set(["sequence"])
+		self._load_sequencesTriggers = {"sequence"}
 
 	def _makeLoadQuery(self, objectType, *args, **coolArgs) :
 		if issubclass(objectType, SNP_INDEL) :
