@@ -103,7 +103,7 @@ class VCFFile(object) :
 		lineId = 0
 		inLegend = True
 		while inLegend :
-			ll = self.f.readline()
+			ll = self.f.readline(5_000_000)
 			l = ll.replace('\r', '\n').replace('\n', '')
 			if l[:2] == '##' :
 				eqPos = l.find('=')
