@@ -14,7 +14,7 @@ class EmptyLine(Exception) :
 def removeDuplicates(inFileName, outFileName) :
 	"""removes duplicated lines from a 'inFileName' CSV file, the results are witten in 'outFileName'"""
 	f = open(inFileName)
-	legend = f.readline()
+	legend = f.readline(5_000_000)
 	
 	data = ''
 	h = {}
