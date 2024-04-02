@@ -1,4 +1,5 @@
-import random, copy
+import copy
+import secrets
 
 def aux_insertTree(childTree, parentTree):
 	"""This a private (You shouldn't have to call it) recursive function that inserts a child tree into a parent tree."""
@@ -61,7 +62,7 @@ class SegmentTree :
 		
 		self.father = father
 		self.level = level
-		self.id = random.randint(0, 10**8)
+		self.id = secrets.SystemRandom().randint(0, 10**8)
 		self.name = name
 		
 		self.children = []

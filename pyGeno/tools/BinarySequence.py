@@ -1,4 +1,5 @@
 import array, copy
+import secrets
 
 class BinarySequence :
 	"""A class for representing sequences in a binary format"""
@@ -383,12 +384,10 @@ if __name__=="__main__":
 		print(bSeq.getSequenceVariants()) 
 
 	testVariants()
-
-	from random import randint
 	alphabeta = ['A', 'C', 'G', 'T']
 	seq = ''
 	for _ in range(8192):
-		seq += alphabeta[randint(0, 3)]
+		seq += alphabeta[secrets.SystemRandom().randint(0, 3)]
 	seq += 'ATGAGTTTGCCGCGCN'
 	bSeq = NucBinarySequence(seq)
 
