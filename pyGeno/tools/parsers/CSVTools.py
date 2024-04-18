@@ -197,7 +197,8 @@ class CSVFile(object) :
 		f.save('myCSV.csv')		
 	"""
 	
-	def __init__(self, legend = [], separator = ',', lineSeparator = '\n') :
+	def __init__(self, legend = None, separator = ',', lineSeparator = '\n') :
+		legend = [] if legend is None else legend
 		
 		self.legend = collections.OrderedDict()
 		for i in range(len(legend)) :

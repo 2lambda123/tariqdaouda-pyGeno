@@ -148,8 +148,9 @@ def findAll(haystack, needle) :
 	return res
 
 
-def complementTab(seq=[]):
+def complementTab(seq=None):
     """returns a list of complementary sequence without inversing it"""
+    seq = [] if seq is None else seq
     complement = {'A': 'T', 'C': 'G', 'G': 'C', 'T': 'A', 'R': 'Y', 'Y': 'R', 'M': 'K', 'K': 'M',
                   'W': 'W', 'S': 'S', 'B': 'V', 'D': 'H', 'H': 'D', 'V': 'B', 'N': 'N', 'a': 't',
                   'c': 'g', 'g': 'c', 't': 'a', 'r': 'y', 'y': 'r', 'm': 'k', 'k': 'm', 'w': 'w',

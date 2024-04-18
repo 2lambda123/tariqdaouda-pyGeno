@@ -4,7 +4,8 @@ from .tools import UsefulFunctions as uf
 
 class Sequence_modifiers(object) :
 	"""Abtract Class. All sequence must inherit from me"""
-	def __init__(self, sources = {}) :
+	def __init__(self, sources = None) :
+		sources = {} if sources is None else sources
 		self.sources = sources
 
 	def addSource(self, name, snp) :
@@ -13,7 +14,8 @@ class Sequence_modifiers(object) :
 
 class SequenceSNP(Sequence_modifiers) :
 	"""Represents a SNP to be applied to the sequence"""
-	def __init__(self, alleles, sources = {}) :
+	def __init__(self, alleles, sources = None) :
+		sources = {} if sources is None else sources
 		Sequence_modifiers.__init__(self, sources)
 		if type(alleles) is list :
 			self.alleles = uf.encodePolymorphicNucleotide(''.join(alleles))
@@ -23,7 +25,8 @@ class SequenceSNP(Sequence_modifiers) :
 class SequenceInsert(Sequence_modifiers) :
 	"""Represents an Insertion to be applied to the sequence"""
 	
-	def __init__(self, bases, sources = {}, ref = '-') :
+	def __init__(self, bases, sources = None, ref = '-') :
+		sources = {} if sources is None else sources
 		Sequence_modifiers.__init__(self, sources)
 		self.bases = bases
 		self.offset = 0
@@ -41,7 +44,8 @@ class SequenceInsert(Sequence_modifiers) :
 
 class SequenceDel(Sequence_modifiers) :
 	"""Represents a Deletion to be applied to the sequence"""
-	def __init__(self, length, sources = {}, ref = None, alt = '-') :
+	def __init__(self, length, sources = None, ref = None, alt = '-') :
+		sources = {} if sources is None else sources
 		Sequence_modifiers.__init__(self, sources)
 		self.length = length
 		self.offset = 0

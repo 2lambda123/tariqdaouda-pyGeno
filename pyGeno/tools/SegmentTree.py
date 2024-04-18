@@ -53,7 +53,8 @@ class SegmentTree :
 	These objects are always stored in lists. If referedObject is already a list it will be stored as is.
 	"""
 	
-	def __init__(self, x1 = None, x2 = None, name = '', referedObject = [], father = None, level = 0) :
+	def __init__(self, x1 = None, x2 = None, name = '', referedObject = None, father = None, level = 0) :
+		referedObject = [] if referedObject is None else referedObject
 		if x1 > x2 :
 			self.x1, self.x2 = x2, x1
 		else :
@@ -74,10 +75,11 @@ class SegmentTree :
 		else :
 			self.children.insert(index, segmentTree)
 	
-	def insert(self, x1, x2, name = '', referedObject = []) :
+	def insert(self, x1, x2, name = '', referedObject = None) :
 		"""Insert the segment in it's right place and returns it. 
 		If there's already a segment S as S.x1 == x1 and S.x2 == x2. S.name will be changed to 'S.name U name' and the
 		referedObject will be appended to the already existing list"""
+		referedObject = [] if referedObject is None else referedObject
 		
 		if x1 > x2 :
 			xx1, xx2 = x2, x1

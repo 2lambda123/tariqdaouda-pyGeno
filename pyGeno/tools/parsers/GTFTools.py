@@ -355,7 +355,8 @@ class GTFFile(object) :
         
         return True
 
-    def _join_ends(self, positions, kept=[]):
+    def _join_ends(self, positions, kept=None):
+        kept = [] if kept is None else kept
         if not positions:
             return kept
         elif len(positions) == 1:
